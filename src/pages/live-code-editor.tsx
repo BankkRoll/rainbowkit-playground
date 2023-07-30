@@ -1,22 +1,16 @@
 // pages/live-code-editor.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Import useEffect
 import CodeEditor, { themes, ThemeName } from '../components/CodeEditor';
 import WebView from '../components/WebView';
 import { components } from '../components/componentsList';
 
 export default function LiveCodeEditorPage() {
-  const [functionalCode, setFunctionalCode] = useState('const MyComponent = () => { return null; };\n\nrender(<MyComponent />);');
-  const [displayCode, setDisplayCode] = useState('return null;');
-  const [selected, setSelected] = useState('');
+  const [functionalCode, setFunctionalCode] = useState('');
+  const [displayCode, setDisplayCode] = useState('');
+  const [selected, setSelected] = useState('Default ConnectButton');
   const [theme, setTheme] = useState<ThemeName>('Monokai');
   const [isCopied, setIsCopied] = useState(false);
-  const [info, setInfo] = useState(''); // Add this line
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(displayCode);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 1000);
-  };
+  const [info, setInfo] = useState('');
 
   const insertComponent = (componentLabel: string) => {
     const component = components.find(comp => comp.label === componentLabel);
@@ -29,8 +23,18 @@ export default function LiveCodeEditorPage() {
       setDisplayCode(component.code);
       
       // Set component info
-      setInfo(component.info); // Add this line
+      setInfo(component.info);
     }
+  };
+
+  // Call insertComponent after the component has mounted
+  useEffect(() => {
+    insertComponent('Default ConnectButton');
+  }, []); 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(displayCode);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 1000);
   };
 
   const handleEditorChange = (value: string) => {
@@ -51,11 +55,11 @@ export default function LiveCodeEditorPage() {
   return (
     <div className="flex h-screen bg-gray-900 text-white">
       <div className="w-1/2 border-r border-gray-700 p-4">
-        <h2 className="text-lg font-bold mb-4">Live Code Editor</h2>
+        <h2 className="text-lg font-bold mb-4">Rainbowkit Playground</h2>
 
         <div className="grid grid-cols-3 gap-4 p-4 bg-gray-800">
           <select
-            className="p-2 rounded-md bg-white text-black max-w-xs"
+            className="p-2 rounded-lg bg-gray-700 text-white max-w-xs shadow-lg transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-gray-600"
             value={selected}
             onChange={handleSelectChange}
           >
@@ -64,7 +68,7 @@ export default function LiveCodeEditorPage() {
             ))}
           </select>
           <select
-            className="p-2 rounded-md bg-white text-black max-w-xs"
+            className="p-2 rounded-lg bg-gray-700 text-white max-w-xs shadow-lg transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-gray-600"
             value={theme}
             onChange={handleThemeChange}
           >
@@ -72,14 +76,13 @@ export default function LiveCodeEditorPage() {
               <option key={theme} value={theme}>{theme.replace(/_/g, ' ')}</option>
             ))}
           </select>
-
           <div className="text-right">
           <button
-              onClick={copyToClipboard}
-              className={`p-2 rounded-md text-white ${isCopied ? 'bg-blue-500 hover:bg-blue-700' : 'bg-green-500 hover:bg-green-700'}`}        
-            >
-              {isCopied ? 'Copied!' : 'Copy'}
-            </button>
+            onClick={copyToClipboard}
+            className={`p-2 rounded-lg bg-gray-700 text-white shadow-lg transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2`}
+          >
+            {isCopied ? 'Copied!' : 'Copy'}
+          </button>
           </div>
         </div>
 

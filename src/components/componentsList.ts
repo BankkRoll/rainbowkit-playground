@@ -2,12 +2,6 @@
 
 export const components = [
     { 
-      label: 'Select a component', 
-      code: '', 
-      info: '' 
-    },
-    
-    { 
       label: 'Default ConnectButton', 
       code: `return (
       <div
