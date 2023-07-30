@@ -16,9 +16,15 @@ export default function WebView({ code }: WebViewProps) {
 
   return (
     <LiveProvider code={code} scope={scope} noInline>
-      <div className="w-full h-[87vh] flex flex-col bg-white text-black p-4 rounded-md shadow-lg">
+      <div className="w-full h-[87vh] flex flex-col bg-white text-black rounded-md shadow-lg">
         <LiveError />
         <div className="flex-grow">
+        <header className="flex items-center justify-between py-6 px-4 bg-blue-500 text-white shadow-md">
+      <div className="flex items-center">
+        <h1 className="text-2xl font-semibold">Rainbow Playground</h1>
+      </div>
+    </header>
+
           <LivePreview />
         </div>
     </div>
