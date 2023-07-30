@@ -24,6 +24,7 @@
     "react-dom": "18.2.0",
     "react-live": "^4.1.3",
     "react-monaco-editor": "^0.54.0",
+    "react-use": "^17.4.0",
     "typescript": "5.1.6",
     "viem": "^1.4.2",
     "wagmi": "^1.3.9"

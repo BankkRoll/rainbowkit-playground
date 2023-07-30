@@ -1,23 +1,39 @@
 // components/CodeEditor.tsx
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Editor, { Monaco } from '@monaco-editor/react';
 
 interface CodeEditorProps {
   initialCode: string;
-  onChange: (value: string) => void;
+  setCode: (value: string) => void;
 }
 
-export default function CodeEditor({ initialCode, onChange }: CodeEditorProps) {
-  const editorRef = useRef(null);
+export default function CodeEditor({ initialCode, setCode }: CodeEditorProps) {
+  const editorRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (editorRef.current) {
+      // Save the current cursor position
+      const position = editorRef.current.getPosition();
+
+      // Update the editor's value
+      const model = editorRef.current.getModel();
+      if (model) {
+        model.setValue(initialCode);
+      }
+
+      // Restore the cursor position
+      editorRef.current.setPosition(position);
+      editorRef.current.focus();
+    }
+  }, [initialCode]);
 
   function handleEditorDidMount(editor: any, monaco: Monaco) {
-    // here is the editor instance
     editorRef.current = editor;
   }
 
   function handleEditorChange(value: string | undefined) {
     if (value !== undefined) {
-      onChange(value);
+      setCode(value);
     }
   }
 
