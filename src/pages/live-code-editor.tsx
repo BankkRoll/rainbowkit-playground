@@ -4,6 +4,7 @@ import CodeEditor, { themes, ThemeName } from '../components/CodeEditor';
 import WebView from '../components/WebView';
 import { components } from '../components/componentsList';
 import { Tab } from '@headlessui/react';
+import Head from 'next/head';
 
 export default function LiveCodeEditorPage() {
   const [functionalCode, setFunctionalCode] = useState('');
@@ -19,7 +20,7 @@ export default function LiveCodeEditorPage() {
   
   const tabs = [
     { name: 'index.tsx', component: 'ConnectButtonIndex' },
-    { name: 'App.tsx', component: 'ConnectButtonApp' },
+    { name: '_app.tsx', component: 'ConnectButtonApp' },
   ]
   
   function wrapInNextPage(componentCode: string) {
@@ -88,6 +89,37 @@ export default Home;`;
   };
 
   return (
+    <>
+    <Head>
+      <title>Playground | RainbowKit Playground</title>
+      <meta name="author" content="Bankkroll" />
+      <meta name="description" content="Interactively play with RainbowKit components" />
+      <meta name="keywords" content="RainbowKit, Playground, Interactive, React Components" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/favicon.ico" />
+
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://rainbowkit-playground.vercel.app/live-code-editor" />
+      <meta property="og:title" content="RainbowKit Playground" />
+      <meta property="og:description" content="Interactively play with RainbowKit components" />
+      <meta property="og:image" content="https://rainbowkit-playground.vercel.app/logo.jpg" />
+
+      {/* Twitter */}
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content="https://rainbowkit-playground.vercel.app/live-code-editor" />
+      <meta property="twitter:title" content="RainbowKit Playground" />
+      <meta property="twitter:description" content="Interactively play with RainbowKit components" />
+      <meta property="twitter:image" content="https://rainbowkit-playground.vercel.app/logo.jpg" />
+
+      {/* Google / Search Engine Tags */}
+      <meta itemProp="name" content="RainbowKit Playground" />
+      <meta itemProp="description" content="Interactively play with RainbowKit components" />
+      <meta itemProp="image" content="https://rainbowkit-playground.vercel.app/logo.jpg" />
+      <meta itemProp="url" content="https://rainbowkit-playground.vercel.app/live-code-editor" />
+      <meta itemProp="author" content="Bankkroll" />
+    </Head>
+
     <div className="flex h-screen bg-gray-900 text-white">
       <div className="w-1/2 border-r border-gray-700 p-4">
         <h2 className="text-lg font-bold mb-4">Rainbowkit Playground</h2>
@@ -100,7 +132,7 @@ export default Home;`;
                 key={idx}
                 onClick={() => {
                   setSelectedTab(tab.name);
-                  if (tab.name === 'App.tsx') {
+                  if (tab.name === '_app.tsx') {
                     const component = components.find(comp => comp.label === selected);
                     if (component) {
                       setDisplayCode(component.appCode);
@@ -186,5 +218,6 @@ export default Home;`;
         <WebView code={liveCode} showInHeader={showInHeader} headerColor={headerColor} />
       </div>
     </div>
+    </>
   );
 }
