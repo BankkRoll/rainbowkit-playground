@@ -54,7 +54,7 @@ const wagmiConfig = createConfig({
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider coolMode appInfo={demoAppInfo} chains={chains}>
+      <RainbowKitProvider coolMode chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>

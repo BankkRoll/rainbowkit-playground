@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react';
 import CodeEditor, { themes, ThemeName } from '../components/CodeEditor';
 import WebView from '../components/WebView';
-import { components } from '../components/componentsList';
+import { components } from '../utils/componentsList';
 import { Tab } from '@headlessui/react';
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function LiveCodeEditorPage() {
   const [functionalCode, setFunctionalCode] = useState('');
@@ -30,7 +31,7 @@ import type { NextPage } from 'next';
 const Home: NextPage = () => {
   ${componentCode}
 };
-    
+
 export default Home;`;
   }
 
@@ -122,8 +123,14 @@ export default Home;`;
 
     <div className="flex h-screen bg-gray-900 text-white">
       <div className="w-1/2 border-r border-gray-700 p-4">
-        <h2 className="text-lg font-bold mb-4">Rainbowkit Playground</h2>
-
+      <div className="flex items-center space-x-2 mb-4">
+        <Link href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white hover:text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h2a1 1 0 01 1-1" />
+            </svg>
+        </Link>
+        <h2 className="text-lg font-bold">Rainbowkit Playground</h2>
+      </div>
 
         <Tab.Group>
           <Tab.List className="flex p-1 space-x-1 bg-blue-900 rounded-xl">
