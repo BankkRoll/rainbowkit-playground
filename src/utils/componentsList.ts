@@ -1,4 +1,4 @@
-// components/componentsList.ts
+// utils/componentsList.ts
 const defaultAppCode = `import '@rainbow-me/rainbowkit/styles.css';
 import {
   getDefaultWallets,
