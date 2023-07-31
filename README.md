@@ -1,4 +1,5 @@
 # RainbowKit Playground
+![logo](https://github.com/BankkRoll/rainbowkit-playground/assets/106103625/bd5accdf-62c2-4d38-b7cd-1f0b9b0b1263)
 
 Welcome to the RainbowKit Playground - a powerful tool for exploring and experimenting with the RainbowKit library components. RainbowKit Playground provides a live, interactive environment for developers to customize components, understand their functionality, and preview the changes in real time.
 
