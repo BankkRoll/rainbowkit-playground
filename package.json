@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.16",
     "@monaco-editor/react": "^4.5.1",
     "@rainbow-me/rainbowkit": "^1.0.7",
     "@types/node": "20.4.5",

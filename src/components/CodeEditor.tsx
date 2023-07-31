@@ -124,6 +124,12 @@ export default function CodeEditor({ initialCode, setCode, theme }: CodeEditorPr
       monaco.editor.defineTheme(theme, themes[theme]);
       definedThemes.add(theme);
     }
+
+      // Disable validation
+  monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    noSemanticValidation: true,
+    noSyntaxValidation: true
+  });
     
     // Set the initial theme
     editor.updateOptions({ theme });
@@ -139,8 +145,8 @@ export default function CodeEditor({ initialCode, setCode, theme }: CodeEditorPr
   return (
     <div>
       <Editor
-        height="80vh"
-        defaultLanguage="javascript"
+        height="73vh"
+        defaultLanguage="typescript"
         defaultValue={initialCode}
         onMount={handleEditorDidMount}
         onChange={handleEditorChange}

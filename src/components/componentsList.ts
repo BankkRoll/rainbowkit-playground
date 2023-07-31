@@ -1,25 +1,75 @@
 // components/componentsList.ts
+const defaultAppCode = `import '@rainbow-me/rainbowkit/styles.css';
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
+  zora,
+} from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+import type { AppProps } from 'next/app';
+
+const { chains, publicClient } = configureChains(
+  [mainnet, polygon, optimism, arbitrum, zora],
+  [
+    alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+    publicProvider()
+  ]
+);
+
+const { connectors } = getDefaultWallets({
+  appName: 'My RainbowKit App',
+  projectId: 'YOUR_PROJECT_ID',
+  chains
+});
+      
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors,
+  publicClient
+})
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider coolMode chains={chains}>
+        <Component {...pageProps} />
+      </RainbowKitProvider>
+    </WagmiConfig>
+  );
+}`;
+
+
 
 export const components = [
     { 
       label: 'Default ConnectButton', 
-      code: `return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          padding: 12,
-        }}
-      >
-        <ConnectButton />
-      </div>
-    );`, 
-      info: 'Displays a default ConnectButton with no customization.' 
+      appCode: defaultAppCode,
+      indexCode: `return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+        padding: 12,
+      }}
+    >
+      <ConnectButton />
+    </div>
+  );`,
+    info: 'Displays a default ConnectButton with no customization.' 
     },
     
     { 
       label: 'ConnectButton custom label', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <div
         style={{
           display: 'flex',
@@ -29,13 +79,14 @@ export const components = [
       >
         <ConnectButton label="Sign in" />
       </div>
-    );`, 
+    );`,
       info: 'Displays a ConnectButton with a custom label "Sign in".' 
     },
-    
+
     { 
       label: 'Signedin only show account avatar', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <div
         style={{
           display: 'flex',
@@ -51,7 +102,8 @@ export const components = [
     
     { 
       label: 'Signedin only show chain name', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <div
         style={{
           display: 'flex',
@@ -67,7 +119,8 @@ export const components = [
     
     { 
       label: 'Signedin hiding balance', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <div
         style={{
           display: 'flex',
@@ -83,7 +136,8 @@ export const components = [
     
     { 
       label: 'ConnectButton responsive', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <div
         style={{
           display: 'flex',
@@ -108,7 +162,8 @@ export const components = [
     
     { 
       label: 'Signedin with account address', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <div
         style={{
           display: 'flex',
@@ -124,7 +179,8 @@ export const components = [
     
     { 
       label: 'Signedin with chain icon', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <div
         style={{
           display: 'flex',
@@ -140,7 +196,8 @@ export const components = [
     
     { 
       label: 'Signedin hiding chain UI', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <div
         style={{
           display: 'flex',
@@ -156,7 +213,8 @@ export const components = [
     
     { 
       label: 'Fully Custom ConnectButton', 
-      code: `return (
+      appCode: defaultAppCode,
+      indexCode: `return (
       <ConnectButton.Custom>
         {({
           account,
