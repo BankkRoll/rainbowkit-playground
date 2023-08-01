@@ -100,14 +100,14 @@ export default function HomePage() {
               ))}
             </motion.div>
 
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-12">
               <Link href="/live-code-editor">
                 <motion.p 
                   className="block py-3 px-8 rounded-lg shadow-lg bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white uppercase tracking-wider font-semibold text-sm sm:text-base cursor-pointer hover:opacity-90 transition duration-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Start Coding
+                  Live Editor ➞
                 </motion.p>
               </Link>
             </div>
