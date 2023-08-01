@@ -21,13 +21,13 @@ export default function WebView({ code, showInHeader, headerColor }: WebViewProp
       <div className="w-full h-[75vh] flex flex-col bg-white text-black rounded-md shadow-lg">
         <LiveError />
 
-        <header style={{ backgroundColor: headerColor }} className="py-6 px-4 text-white shadow-md">
+        <header style={{ backgroundColor: headerColor }} className="h-16 px-4 text-white shadow-md">
           {showInHeader && <LivePreview />}
         </header>
 
         <div className="flex-grow">
-          <h1 className="text-2xl text-center font-bold justify-center items-center p-4 space-y-4 max-w-lg mx-auto">This example environment and is for example viewing and testing purposes only</h1>
-          <p className="text-lg text-center justify-center items-center p-4 space-y-4 max-w-lg mx-auto">You can toggle the button to be in the navbar or the body above depending on your needs</p>
+          <h1 className="text-2xl text-center font-bold justify-center items-center p-4 space-y-2 max-w-lg mx-auto">This example environment and is for example viewing and testing purposes only.</h1>
+          <p className="text-lg text-center justify-center items-center p-4 pb-14 space-y-2 max-w-lg mx-auto">You can toggle the button to be in the navbar or the body above depending on your needs</p>
 
           {!showInHeader && <LivePreview />}
         </div>
