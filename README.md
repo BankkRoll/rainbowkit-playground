@@ -3,6 +3,17 @@
 
 Welcome to the RainbowKit Playground - a powerful tool for exploring and experimenting with the RainbowKit library components. RainbowKit Playground provides a live, interactive environment for developers to customize components, understand their functionality, and preview the changes in real time.
 
+# in progress
+
+Here's a list of tasks that need to be addressed:
+
+- [ ] Fix refreshing on file change (add context)
+- [ ] Fix refreshing on component change (add context)
+- [ ] Modify `app.tsx` file to show current selection of settings edited
+- [ ] Address minor bug fixes
+- [ ] Implement more custom components
+
+
 ## Features
 
 - **Live Code Editor**: Write and edit your RainbowKit components code on the fly.
