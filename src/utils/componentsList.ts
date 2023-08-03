@@ -1,5 +1,5 @@
 // utils/componentsList.ts
-const defaultAppCode = `import type { AppProps } from 'next/app';
+let defaultAppCode = `import type { AppProps } from 'next/app';
 import '@rainbow-me/rainbowkit/styles.css';
 import {
   getDefaultWallets,
@@ -56,7 +56,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
 
 
-export const components = [
+export let components = [
     { 
       label: 'Default ConnectButton', 
       appCode: defaultAppCode,
@@ -220,3 +220,22 @@ export const components = [
     },
   ];
   
+
+
+  export function updateComponent(label: string, newAppCode: string, newIndexCode: string) {
+    const component = components.find(comp => comp.label === label);
+    if (component) {
+      component.appCode = newAppCode;
+      component.indexCode = newIndexCode;
+    }
+  }
+  
+  export function updateDefaultAppCode(newAppCode: string) {
+    defaultAppCode = newAppCode;
+    // Also update all components that are still using the default app code
+    components.forEach(comp => {
+      if (comp.appCode === defaultAppCode) {
+        comp.appCode = newAppCode;
+      }
+    });
+  }

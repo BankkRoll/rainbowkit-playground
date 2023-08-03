@@ -18,7 +18,7 @@ export default function WebView({ code, showInHeader, headerColor }: WebViewProp
 
   return (
     <LiveProvider code={code} scope={scope} noInline>
-      <div className="w-full h-[75vh] flex flex-col bg-white text-black rounded-md shadow-lg">
+      <div className="w-full h-[62vh] flex flex-col bg-white text-black rounded-md shadow-lg">
         <LiveError />
 
         <header style={{ backgroundColor: headerColor }} className="h-16 px-4 text-white shadow-md">

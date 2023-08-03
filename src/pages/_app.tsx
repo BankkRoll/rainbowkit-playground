@@ -1,4 +1,5 @@
 // pages/_app.tsx
+import React, { useState } from 'react';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -6,6 +7,7 @@ import {
   getDefaultWallets,
   RainbowKitProvider,
   connectorsForWallets,
+  darkTheme,
 } from '@rainbow-me/rainbowkit';
 import {
   mainnet,
@@ -30,17 +32,11 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [publicProvider()]
 );
 
-const projectId = '5f855432faf01e0ac3a41e0c83ff1ae8';
-
 const { wallets } = getDefaultWallets({
   appName: 'RainbowKit demo',
-  projectId,
+  projectId: '5f855432faf01e0ac3a41e0c83ff1ae8',
   chains,
 });
-
-const demoAppInfo = {
-  appName: 'Rainbowkit Demo',
-};
 
 const connectors = connectorsForWallets(wallets);
 
@@ -52,10 +48,19 @@ const wagmiConfig = createConfig({
 });
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const [coolMode, setCoolMode] = useState(false); // <-- manage cool mode state
+  const [theme, setTheme] = useState(darkTheme); // <-- manage theme state
+
+  // provide a function to toggle cool mode
+  const toggleCoolMode = () => setCoolMode((prevMode) => !prevMode);
+
+  // provide a function to customize theme
+  const customizeTheme = (options: any) => setTheme(darkTheme(options));
+
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider coolMode chains={chains}>
-        <Component {...pageProps} />
+      <RainbowKitProvider coolMode={coolMode} theme={theme} chains={chains}>
+        <Component {...pageProps} onToggleCoolMode={toggleCoolMode} onCustomizeTheme={customizeTheme} />
       </RainbowKitProvider>
     </WagmiConfig>
   );
