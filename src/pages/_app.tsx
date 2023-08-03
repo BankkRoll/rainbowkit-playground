@@ -1,14 +1,14 @@
 // pages/_app.tsx
-import React, { useState } from 'react';
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
-import '@rainbow-me/rainbowkit/styles.css';
+import React, { useState } from "react";
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
+import "@rainbow-me/rainbowkit/styles.css";
 import {
   getDefaultWallets,
   RainbowKitProvider,
   connectorsForWallets,
   darkTheme,
-} from '@rainbow-me/rainbowkit';
+} from "@rainbow-me/rainbowkit";
 import {
   mainnet,
   polygon,
@@ -16,9 +16,9 @@ import {
   arbitrum,
   zora,
   goerli,
-} from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+} from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
@@ -27,14 +27,14 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     optimism,
     arbitrum,
     zora,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli] : []),
   ],
   [publicProvider()]
 );
 
 const { wallets } = getDefaultWallets({
-  appName: 'RainbowKit demo',
-  projectId: '5f855432faf01e0ac3a41e0c83ff1ae8',
+  appName: "RainbowKit demo",
+  projectId: "5f855432faf01e0ac3a41e0c83ff1ae8",
   chains,
 });
 
@@ -48,8 +48,8 @@ const wagmiConfig = createConfig({
 });
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const [coolMode, setCoolMode] = useState(false); // <-- manage cool mode state
-  const [theme, setTheme] = useState(darkTheme); // <-- manage theme state
+  const [coolMode, setCoolMode] = useState(false);
+  const [theme, setTheme] = useState(darkTheme);
 
   // provide a function to toggle cool mode
   const toggleCoolMode = () => setCoolMode((prevMode) => !prevMode);
@@ -60,7 +60,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider coolMode={coolMode} theme={theme} chains={chains}>
-        <Component {...pageProps} onToggleCoolMode={toggleCoolMode} onCustomizeTheme={customizeTheme} />
+        <Component
+          {...pageProps}
+          onToggleCoolMode={toggleCoolMode}
+          onCustomizeTheme={customizeTheme}
+        />
       </RainbowKitProvider>
     </WagmiConfig>
   );

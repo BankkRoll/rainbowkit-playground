@@ -1,8 +1,7 @@
 // components/Navbar.tsx
-import Link from 'next/link';
-import { useState } from 'react';
-import Image from 'next/image';
-
+import Link from "next/link";
+import { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [navbar, setNavbar] = useState(false);
@@ -13,8 +12,16 @@ export default function Home() {
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
               <a href="#" className="flex items-center">
-                <Image height={100} width={100} className="h-10 w-auto rounded-2xl" src="/logo.jpg" alt="RainbowKit Playground" />
-                <h2 className="text-2xl text-white font-bold ml-4">RainbowKit Playground</h2>
+                <Image
+                  height={100}
+                  width={100}
+                  className="h-10 w-auto rounded-2xl"
+                  src="/logo.jpg"
+                  alt="RainbowKit Playground"
+                />
+                <h2 className="text-2xl text-white font-bold ml-4">
+                  RainbowKit Playground
+                </h2>
               </a>
               <div className="md:hidden">
                 <button
@@ -57,7 +64,7 @@ export default function Home() {
           <div>
             <div
               className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
-                navbar ? 'block' : 'hidden'
+                navbar ? "block" : "hidden"
               }`}
             >
               <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
@@ -72,7 +79,11 @@ export default function Home() {
                   </Link>
                 </li>
                 <li className="text-white hover:text-gray-400">
-                  <Link target="_blank" rel="noopener noreferrer" href="https://www.rainbowkit.com/docs/introduction">
+                  <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.rainbowkit.com/docs/introduction"
+                  >
                     <p>Learn More</p>
                   </Link>
                 </li>

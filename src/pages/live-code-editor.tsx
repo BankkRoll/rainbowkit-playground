@@ -36,6 +36,7 @@ export default function LiveCodeEditorPage(props: LiveCodeEditorPageProps) {
   const [accentColorForeground, setaccentColorForeground] = useState("#3b21f6");
   const [selectedTab, setSelectedTab] = useState("index.tsx");
   const [liveCode, setLiveCode] = useState("");
+  const [coolMode, setCoolMode] = useState(false);
 
   const tabs = [
     { name: "index.tsx", component: "ConnectButtonIndex" },
@@ -71,8 +72,14 @@ export default function HomePage() {
     }
   };
 
-  const handleToggleCoolMode = () => {
-    props.onToggleCoolMode && props.onToggleCoolMode();
+  const handleToggleCoolMode = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const isOn = event.target.value === "on";
+    setCoolMode(isOn);
+    if (isOn) {
+      props.onToggleCoolMode && props.onToggleCoolMode();
+    }
   };
 
   const handleCustomizeTheme = (options: ThemeOptions) => {
@@ -297,90 +304,72 @@ export default function HomePage() {
 
         {/* Live Preview */}
         <div className="w-1/2 p-4">
-          <h2 className="text-lg font-bold mb-4">Live Preview</h2>
-          {/* Display Settings */}
-          <div className="bg-gray-800 p-4">
-            <div className="flex justify-between items-center gap-4">
-              {/* Position Toggle */}
-              <div className="flex items-center space-x-4">
-                <label
-                  htmlFor="headerColor"
-                  className="flex items-center text-sm text-white cursor-pointer"
-                >
-                  Position:
-                </label>
-                <label
-                  htmlFor="toggle1"
-                  className="flex items-center text-sm text-white cursor-pointer"
-                >
-                  <div
-                    className="relative bg-gray-200 w-28 h-8 rounded-full shadow-inner flex items-center transition-colors duration-200 ease-in-out"
-                    style={{ backgroundColor: showInHeader ? "gray" : "gray" }}
-                  >
-                    <input
-                      type="checkbox"
-                      id="toggle1"
-                      className="hidden"
-                      checked={showInHeader}
-                      onChange={() => setShowInHeader(!showInHeader)}
-                    />
-                    <div
-                      className={`absolute left-2 h-6 w-12 rounded-full bg-white flex items-center justify-center transition-transform duration-200 ease-in-out ${
-                        showInHeader ? "transform translate-x-full" : ""
-                      }`}
-                    >
-                      <span className="text-sm text-black">
-                        {showInHeader ? "Header" : "Body"}
-                      </span>
-                    </div>
-                  </div>
-                </label>
-              </div>
-              {/* Color Picker */}
-              <div className="flex items-center space-x-2">
-                <label
-                  htmlFor="headerColor"
-                  className="block text-sm text-white"
-                >
-                  Header Color:
-                </label>
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-lg font-bold mb-4">Live Preview</h2>
+            {/* Position Toggle */}
+            <div className="flex items-center space-x-4">
+              <label
+                htmlFor="headerColor"
+                className="flex items-center text-sm text-white cursor-pointer"
+              >
+                Position:
+              </label>
+              <label
+                htmlFor="toggle1"
+                className="flex items-center text-sm text-white cursor-pointer"
+              >
                 <div
-                  className="w-12 h-12 rounded-full shadow-lg cursor-pointer"
-                  style={{ backgroundColor: headerColor }}
+                  className="relative bg-gray-200 w-28 h-8 rounded-full shadow-inner flex items-center transition-colors duration-200 ease-in-out"
+                  style={{ backgroundColor: showInHeader ? "gray" : "gray" }}
                 >
                   <input
-                    id="headerColor"
-                    type="color"
-                    value={headerColor}
-                    onChange={(e) => setHeaderColor(e.target.value)}
-                    className="w-full h-full opacity-0 cursor-pointer"
+                    type="checkbox"
+                    id="toggle1"
+                    className="hidden"
+                    checked={showInHeader}
+                    onChange={() => setShowInHeader(!showInHeader)}
                   />
+                  <div
+                    className={`absolute left-2 h-6 w-12 rounded-full bg-white flex items-center justify-center transition-transform duration-200 ease-in-out ${
+                      showInHeader ? "transform translate-x-full" : ""
+                    }`}
+                  >
+                    <span className="text-sm text-black">
+                      {showInHeader ? "Header" : "Body"}
+                    </span>
+                  </div>
                 </div>
+              </label>
+            </div>
+            {/* Color Picker */}
+            <div className="flex items-center space-x-2">
+              <label htmlFor="headerColor" className="block text-sm text-white">
+                Header Color:
+              </label>
+              <div
+                className="w-12 h-12 rounded-full shadow-lg cursor-pointer"
+                style={{ backgroundColor: headerColor }}
+              >
+                <input
+                  id="headerColor"
+                  type="color"
+                  value={headerColor}
+                  onChange={(e) => setHeaderColor(e.target.value)}
+                  className="w-full h-full opacity-0 cursor-pointer"
+                />
               </div>
             </div>
           </div>
-
           {/* Color Settings */}
           <div className="bg-gray-800 p-4">
             <div className="flex justify-between items-center gap-4">
-              {/* Cool Mode Switch */}
-              <div className="flex items-center space-x-2">
-                <label htmlFor="toggle" className="text-sm text-white">
-                  Cool Mode:
-                </label>
-                <input
-                  type="checkbox"
-                  id="toggle"
-                  onChange={handleToggleCoolMode}
-                />
-              </div>
               {/* Accent Color Picker */}
               <div className="flex items-center space-x-2">
                 <label
                   htmlFor="accentColor"
                   className="block text-sm text-white"
                 >
-                  Accent Color:
+                  Button BG Color:
                 </label>
                 <div
                   className="w-12 h-6 rounded shadow-lg cursor-pointer relative"
@@ -405,7 +394,7 @@ export default function HomePage() {
                   htmlFor="accentColorForeground"
                   className="block text-sm text-white"
                 >
-                  Accent Color Foreground:
+                  Button Text Color:
                 </label>
                 <div
                   className="w-12 h-6 rounded shadow-lg cursor-pointer relative"
@@ -425,6 +414,22 @@ export default function HomePage() {
                   />
                 </div>
               </div>
+
+              {/* Cool Mode Switch */}
+              <div className="flex items-center space-x-2">
+                <label htmlFor="coolModeToggle" className="text-sm text-white">
+                  Cool Mode (modal) :
+                </label>
+                <select
+                  id="coolModeToggle"
+                  className="p-2 rounded-lg bg-gray-700 text-white max-w-xs shadow-lg transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-gray-600"
+                  onChange={handleToggleCoolMode}
+                  value={coolMode ? "on" : "off"}
+                >
+                  <option value="off">Off</option>
+                  <option value="on">On</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -433,6 +438,9 @@ export default function HomePage() {
             <div className="flex justify-between items-center gap-4">
               {/* Border Radius Picker */}
               <div className="flex items-center space-x-2">
+                <label htmlFor="rounded" className="text-sm text-white">
+                  Rounded:
+                </label>
                 <select
                   className="p-2 rounded-lg bg-gray-700 text-white max-w-xs shadow-lg transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-gray-600"
                   onChange={(event) =>
@@ -454,6 +462,9 @@ export default function HomePage() {
 
               {/* Font Stack Picker */}
               <div className="flex items-center space-x-2">
+                <label htmlFor="font" className="text-sm text-white">
+                  Font:
+                </label>
                 <select
                   className="p-2 rounded-lg bg-gray-700 text-white max-w-xs shadow-lg transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-gray-600"
                   onChange={(event) =>
@@ -475,11 +486,11 @@ export default function HomePage() {
 
               {/* Modal Overlay Blur Picker */}
               <div className="flex items-center space-x-2">
-              <label
+                <label
                   htmlFor="overlayBlur"
                   className="block text-sm text-white"
                 >
-                  Overlay Blur:
+                  Overlay Blur (modal) :
                 </label>
                 <select
                   className="p-2 rounded-lg bg-gray-700 text-white max-w-xs shadow-lg transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-gray-600"
